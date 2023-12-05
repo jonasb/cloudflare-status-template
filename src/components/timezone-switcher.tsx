@@ -16,14 +16,14 @@ export function TimezoneSwitcher({ timezone }: { timezone: string }) {
             if (timezone) {
               const a = document.getElementById("switch-timezone");
               a.style.display = "inline";
-              a.innerText = "Switch to " + timezone;
+              a.innerText = "(➠ " + timezone + ")";
               a.href = "/?tz=" + timezone;
             }`,
             }}
           />
         </>
       ) : (
-        <a href="/">Switch to {defaultTimezone}</a>
+        <a href="/">(➠ {defaultTimezone})</a>
       )}
     </p>
   );

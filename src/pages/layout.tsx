@@ -1,4 +1,4 @@
-import { html } from "hono/html";
+import { html } from 'hono/html';
 
 export function Layout({ title, children }: { title: string; children?: any }) {
   return html`<!DOCTYPE html>
@@ -16,6 +16,9 @@ export function Layout({ title, children }: { title: string; children?: any }) {
             background: var(--background);
             color: var(--color);
             font-family: sans-serif;
+          }
+          a {
+            color: var(--color);
           }
           .container {
             max-width: 800px;
