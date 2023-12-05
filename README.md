@@ -10,3 +10,4 @@
   you created in the previous step to `wrangler.toml`
 - `npx wrangler d1 migrations apply --local <DATABASE_NAME>` to set up the local
   database
+- `npm start` to start the development server

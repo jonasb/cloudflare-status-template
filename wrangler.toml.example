@@ -8,3 +8,7 @@ binding = "DB"
 # Replace with your own database name and ID
 database_name = ""
 database_id = ""
+
+[triggers]
+# Configure the CRON schedules, ensure the probes in src/probes.ts are configured accordingly
+crons = [ "0 * * * *" ]
