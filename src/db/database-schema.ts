@@ -10,6 +10,13 @@ export interface DatabaseSchema {
     description: string | null;
   };
 
+  log_lines: {
+    id: number;
+    created_at: string;
+    level: 'info' | 'warn' | 'error';
+    message: string;
+  };
+
   probe_statuses: {
     id: string;
     last_started_at: string;

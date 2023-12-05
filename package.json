@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "tsc",
-    "deploy": "wrangler deploy src/index.tsx",
-    "dev": "wrangler dev src/index.tsx",
+    "build": "wrangler types && tsc",
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "postinstall": "wrangler types",
     "start": "npm run dev",
     "tail": "wrangler tail"
   },

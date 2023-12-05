@@ -2,6 +2,7 @@ import type { RowType, SqlTag } from 'd1-sql-tag';
 import { TimezoneSwitcher } from '../components/timezone-switcher';
 import {
   selectLatestEvents,
+  selectLatestLogLines,
   selectProbeStatuses,
 } from '../db/database-statements';
 import { probeConfigs } from '../probes/probe-configs';
@@ -18,9 +19,14 @@ export async function StatusPage({
   timezone: string;
   enableExecuteAllProbes: boolean;
 }) {
-  const [{ results: probeStatuses }, { results: events }] = await sql.batch([
+  const [
+    { results: probeStatuses },
+    { results: events },
+    { results: logLines },
+  ] = await sql.batch([
     selectProbeStatuses(sql),
     selectLatestEvents(sql),
+    selectLatestLogLines(sql),
   ] as const);
 
   return (
@@ -29,6 +35,7 @@ export async function StatusPage({
       <ProbeOverview probeStatuses={probeStatuses} timezone={timezone} />
       <TimezoneSwitcher timezone={timezone} />
       <EventHistory events={events} timezone={timezone} />
+      <LogLines logLines={logLines} timezone={timezone} />
       {enableExecuteAllProbes && (
         <button
           type="button"
@@ -129,6 +136,38 @@ function EventHistory({
                 })}
               </>
             ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+}
+
+function LogLines({
+  logLines,
+  timezone,
+}: {
+  logLines: RowType<typeof selectLatestLogLines>[];
+  timezone: string;
+}) {
+  if (logLines.length === 0) {
+    return null;
+  }
+  return (
+    <>
+      <h2>Recent logs</h2>
+      <div class="full-bleed-scroll-container">
+        <table class="table">
+          <tbody>
+            {logLines.map((logLine) => {
+              return (
+                <tr>
+                  <td>{formatDateTime(logLine.createdAt, timezone)}</td>
+                  <td>{logLine.level}</td>
+                  <td>{logLine.message}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

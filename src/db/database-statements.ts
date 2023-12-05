@@ -79,3 +79,24 @@ export function insertEvent(
     VALUES (${now}, ${event.probeId}, ${event.webhookId}, ${event.duration},
             ${event.result}, ${event.category}, ${event.description})`.build();
 }
+
+export function insertLogLine(
+  sql: SqlTag,
+  level: DB['log_lines']['level'],
+  message: string
+) {
+  const now = new Date().toISOString();
+
+  return sql`INSERT INTO log_lines (created_at, level, message) VALUES (${now}, ${level}, ${message})`.build();
+}
+
+export function selectLatestLogLines(sql: SqlTag) {
+  type Row = Pick<DB['log_lines'], 'created_at' | 'level' | 'message'>;
+  return sql`SELECT created_at, level, message FROM log_lines ORDER BY id DESC LIMIT 30`
+    .build<Row>()
+    .map((row) => ({
+      createdAt: convertDate(row.created_at),
+      level: row.level,
+      message: row.message,
+    }));
+}

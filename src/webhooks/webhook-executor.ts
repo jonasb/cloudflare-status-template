@@ -2,29 +2,41 @@ import type { SqlTag } from 'd1-sql-tag';
 import type { HonoRequest } from 'hono';
 import { HTTPException } from 'hono/http-exception';
 import { insertEvent } from '../db/database-statements';
+import type { PersistentLogger } from '../utils/persistent-logger';
 import { webhooksConfigs } from './webhook-configs';
 
-interface DatabaseContext {
+interface Context {
   sql: SqlTag;
+  logger: PersistentLogger;
 }
 
 export async function executeWebhook(
-  { sql }: DatabaseContext,
-  id: string,
+  { sql, logger }: Context,
+  webhookId: string,
   req: HonoRequest
 ) {
-  const webhook = webhooksConfigs.find((it) => it.id === id);
+  const webhook = webhooksConfigs.find((it) => it.id === webhookId);
   if (!webhook) {
-    console.warn('Webhook not found', id);
+    logger('warn', `Webhook not found (${webhookId})`);
     throw new HTTPException(404, { message: 'Webhook not found' });
   }
-  const result = await webhook.parseRequest(req);
-  if (result) {
-    await insertEvent(sql, {
-      webhookId: id,
-      probeId: null,
-      duration: null,
-      ...result,
-    }).run();
+  try {
+    const result = await webhook.parseRequest(req);
+    if (result) {
+      await insertEvent(sql, {
+        webhookId: webhookId,
+        probeId: null,
+        duration: null,
+        ...result,
+      }).run();
+    }
+  } catch (error) {
+    logger(
+      'error',
+      `Error while executing webhook (${webhookId}): ${
+        error instanceof Error ? error.message : error
+      }`
+    );
+    throw error;
   }
 }

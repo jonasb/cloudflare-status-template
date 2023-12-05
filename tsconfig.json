@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es2021",
-    "module": "es2022",
-    "lib": ["es2021"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext"],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
     "moduleResolution": "node",
-    "types": ["@cloudflare/workers-types"],
+    "types": ["@cloudflare/workers-types/2023-07-01"],
     "noEmit": true,
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
