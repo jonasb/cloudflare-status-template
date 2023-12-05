@@ -1,10 +1,10 @@
-// https://vercel.com/docs/observability/webhooks-overview/webhooks-api
-// This is a best attempt at the Vercel webhook payload. It is not complete.
-
 import type { HonoRequest } from 'hono';
 import type { WebhookResult } from './webhook-types';
 
-export type VercelWebhookPayload = {
+// https://vercel.com/docs/observability/webhooks-overview/webhooks-api
+// This is a best attempt at the Vercel webhook payload. It is not complete.
+
+type VercelWebhookPayload = {
   id: string;
   createdAt: number;
 } & (

@@ -6,7 +6,8 @@
     "build": "tsc",
     "deploy": "wrangler deploy src/index.tsx",
     "dev": "wrangler dev src/index.tsx",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "tail": "wrangler tail"
   },
   "dependencies": {
     "d1-sql-tag": "^0.2.0",

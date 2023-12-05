@@ -3,7 +3,14 @@ import type { WebhookConfig } from './webhook-types';
 
 export const webhooksConfigs: WebhookConfig[] = [
   {
-    id: 'vercel',
+    id: 'github-webhook',
+    title: 'GitHub',
+    parseRequest(req) {
+      return parseVercelWebhook(req);
+    },
+  },
+  {
+    id: 'vercel-webhook',
     title: 'Vercel',
     parseRequest(req) {
       return parseVercelWebhook(req);
