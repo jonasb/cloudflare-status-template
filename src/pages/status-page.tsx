@@ -151,7 +151,7 @@ function LogLines({
   timezone: string;
 }) {
   if (logLines.length === 0) {
-    return null;
+    return <></>;
   }
   return (
     <>

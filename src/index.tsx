@@ -43,7 +43,6 @@ app.get('/api/execute-all-probes', async (c) => {
 app.post('/api/webhook/:id', async (c) => {
   const sql = createSqlTag(c);
   const webhookId = c.req.param('id');
-  console.log('XXXX', webhookId);
   const logger = createPersistentLogger(sql, c.executionCtx);
   await executeWebhook({ sql, logger }, webhookId, c.req);
   return c.text('ok');
