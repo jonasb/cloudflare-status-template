@@ -9,6 +9,7 @@ import { executeWebhook } from './webhooks/webhook-executor';
 
 export type Bindings = {
   DB: D1Database;
+  ENABLE_RUNNING_ALL_PROBES: '1' | undefined;
 };
 
 type CloudflareHono = Hono<{ Bindings: Bindings }> & {
@@ -22,18 +23,23 @@ app.use('*', timing());
 app.get('/', async (c) => {
   const sql = createSqlTag(c);
   const timezone = c.req.query('tz') ?? defaultTimezone;
-  return c.html(<StatusPage sql={sql} timezone={timezone} />);
+  const enableExecuteAllProbes = c.env.ENABLE_RUNNING_ALL_PROBES === '1';
+  return c.html(
+    <StatusPage
+      sql={sql}
+      timezone={timezone}
+      enableExecuteAllProbes={enableExecuteAllProbes}
+    />
+  );
 });
 
-// TODO only in dev mode
-app.get('/execute', async (c) => {
+app.get('/api/execute-all-probes', async (c) => {
+  if (c.env.ENABLE_RUNNING_ALL_PROBES !== '1') {
+    return c.text('Not found', 404);
+  }
   const sql = createSqlTag(c);
   await executeAllProbes({ sql });
-  return c.html(
-    <Layout title="Status">
-      <p>Executed</p>
-    </Layout>
-  );
+  return c.text('done');
 });
 
 app.post('/webhook/:id', async (c) => {

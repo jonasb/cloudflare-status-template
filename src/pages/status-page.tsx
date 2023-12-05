@@ -12,9 +12,11 @@ import { Layout } from './layout';
 export async function StatusPage({
   sql,
   timezone,
+  enableExecuteAllProbes,
 }: {
   sql: SqlTag;
   timezone: string;
+  enableExecuteAllProbes: boolean;
 }) {
   const [{ results: probeStatuses }, { results: events }] = await sql.batch([
     selectProbeStatuses(sql),
@@ -27,12 +29,14 @@ export async function StatusPage({
       <ProbeOverview probeStatuses={probeStatuses} timezone={timezone} />
       <TimezoneSwitcher timezone={timezone} />
       <EventHistory events={events} timezone={timezone} />
-      <button
-        type="button"
-        onClick="fetch('/execute').then(res => res.text()).then(() => window.location.reload())"
-      >
-        Execute
-      </button>
+      {enableExecuteAllProbes && (
+        <button
+          type="button"
+          onClick="fetch('/api/execute-all-probes').then(res => res.text()).then(() => window.location.reload())"
+        >
+          Execute
+        </button>
+      )}
     </Layout>
   );
 }

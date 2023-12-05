@@ -3,7 +3,7 @@ export const defaultTimezone = 'Etc/UTC';
 export function TimezoneSwitcher({ timezone }: { timezone: string }) {
   return (
     <p>
-      Timezone: {timezone}{' '}
+      <b>Timezone:</b> {timezone}{' '}
       {timezone === defaultTimezone ? (
         <>
           <a id="switch-timezone" style="display: none">
