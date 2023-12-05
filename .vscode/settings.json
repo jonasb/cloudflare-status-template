@@ -1,0 +1,8 @@
+{
+  "cSpell.words": ["Bengtsson", "hono"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.rulers": [80],
+  "editor.tabSize": 2,
+  "files.insertFinalNewline": true
+}

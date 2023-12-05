@@ -1,0 +1,10 @@
+# Replace name with your own app name
+name = "cloudflare-status-template"
+main = "src/index.ts"
+compatibility_date = "2023-11-21"
+
+[[d1_databases]]
+binding = "DB"
+# Replace with your own database name and ID
+database_name = ""
+database_id = ""

@@ -7,6 +7,10 @@
     "dev": "wrangler dev",
     "start": "wrangler dev"
   },
+  "dependencies": {
+    "d1-sql-tag": "^0.2.0",
+    "hono": "^3.11.2"
+  },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231121.0",
     "typescript": "^5.0.4",

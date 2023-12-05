@@ -1,32 +1,36 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npm run deploy` to publish your worker
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
+import { createD1SqlTag, logQueryResults } from 'd1-sql-tag';
+import { Hono, type Context } from 'hono';
+import { endTime, setMetric, startTime, timing } from 'hono/timing';
 
-export interface Env {
-	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
-	// MY_KV_NAMESPACE: KVNamespace;
-	//
-	// Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
-	// MY_DURABLE_OBJECT: DurableObjectNamespace;
-	//
-	// Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
-	// MY_BUCKET: R2Bucket;
-	//
-	// Example binding to a Service. Learn more at https://developers.cloudflare.com/workers/runtime-apis/service-bindings/
-	// MY_SERVICE: Fetcher;
-	//
-	// Example binding to a Queue. Learn more at https://developers.cloudflare.com/queues/javascript-apis/
-	// MY_QUEUE: Queue;
+type Bindings = {
+  DB: D1Database;
+};
+
+const app = new Hono<{ Bindings: Bindings }>();
+
+function createSqlTag(c: Context<{ Bindings: Bindings }>) {
+  return createD1SqlTag(c.env.DB, {
+    beforeQuery(batchId, queries) {
+      startTime(c, `db-${batchId}`);
+    },
+    afterQuery(batchId, queries, results, duration) {
+      endTime(c, `db-${batchId}`);
+      results.forEach((result, i) => {
+        setMetric(c, `db-${batchId}-query-${i + 1}`, result.meta.duration);
+      });
+      logQueryResults(queries, results, duration);
+    },
+  });
 }
 
-export default {
-	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-		return new Response('Hello World!');
-	},
-};
+app.use('*', timing());
+
+app.get('/', async (c) => {
+  const sql = createSqlTag(c);
+  const result = await sql`SELECT ${'hello world'} AS message`.all<{
+    message: string;
+  }>();
+  return c.text(`Message: ${result.results[0].message}`);
+});
+
+export default app;
