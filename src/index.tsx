@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+import { serveStatic } from 'hono/cloudflare-workers';
 import { timing } from 'hono/timing';
 import { defaultTimezone } from './components/timezone-switcher';
 import { createCronSqlTag, createSqlTag } from './db/sql-tag';
@@ -16,6 +17,8 @@ type CloudflareHono = Hono<{ Bindings: Bindings }> & {
 const app: CloudflareHono = new Hono();
 
 app.use('*', timing());
+
+app.get('/favicon.ico', serveStatic({ path: './favicon.ico' }));
 
 app.get('/', async (c) => {
   const sql = createSqlTag(c);

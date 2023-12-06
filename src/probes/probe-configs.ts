@@ -15,6 +15,7 @@ export const probeConfigs: ProbeConfig[] = [
   {
     id: 'cloudflare-status',
     title: 'Cloudflare Status',
+    url: 'https://www.cloudflarestatus.com',
     matchCron: (cron) => cron === cronHourly,
     execute: (context) =>
       probeAtlassianStatus(context, 'https://www.cloudflarestatus.com'),
@@ -22,6 +23,7 @@ export const probeConfigs: ProbeConfig[] = [
   {
     id: 'github-status',
     title: 'GitHub Status',
+    url: 'https://www.githubstatus.com',
     matchCron: (cron) => cron === cronHourly,
     execute: (context) =>
       probeAtlassianStatus(context, 'https://www.githubstatus.com'),

@@ -1,6 +1,7 @@
 export interface ProbeConfig {
   id: string;
   title: string;
+  url?: string;
   matchCron(cron: string): boolean;
   execute(context: ProbeContext): Promise<ProbeResult>;
 }

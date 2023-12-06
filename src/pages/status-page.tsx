@@ -39,9 +39,10 @@ export async function StatusPage({
       {enableExecuteAllProbes && (
         <button
           type="button"
+          style="margin-top: 2rem;"
           onClick="fetch('/api/execute-all-probes').then(res => res.text()).then(() => window.location.reload())"
         >
-          Execute
+          Execute all probes
         </button>
       )}
     </Layout>

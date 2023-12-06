@@ -62,7 +62,13 @@ function ProbeCard({
         </p>
       </div>
       <div>
-        <h3>{probeConfig.title}</h3>
+        <h3>
+          {probeConfig.url ? (
+            <a href={probeConfig.url}>{probeConfig.title}</a>
+          ) : (
+            probeConfig.title
+          )}
+        </h3>
         <p>
           {probeStatus?.sameResultSince &&
             'Since ' + formatDateTime(probeStatus.sameResultSince, timezone)}

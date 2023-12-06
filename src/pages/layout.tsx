@@ -53,11 +53,14 @@ export function Layout({ title, children }: { title: string; children?: any }) {
           .probe-card {
             display: flex;
             flex-direction: row;
-            gap: 1rem;
+            gap: 0.5rem;
           }
           .probe-card p,
           .probe-card h3 {
             margin: 0;
+          }
+          .probe-card h3 {
+            margin-bottom: 0.25rem;
           }
           .table {
             border-spacing: 0.25rem;
