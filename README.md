@@ -9,6 +9,11 @@ be run for free.
 This is not expected to be a fully featured status page, but a starting point
 for creating custom status pages.
 
+Consider:
+
+- It's best practice to run your status page on different infrastructure than
+  the services it's monitoring, so that it's not affected by the same issues
+
 ## Features
 
 - Probes that are run periodically to check the status of a service or component
@@ -76,11 +81,12 @@ status page.
 
 ## Design goals
 
-- Simple
-- Low cost
-- Few dependencies
-- Easy to customize
-- Standalone
+- Simple: No UI framework, just server-side rendered HTML and CSS
+- Low cost: Runs on free plan
+- Few dependencies: No one wants to maintain a status page
+- Easy to customize: Probes and webhooks are just TypeScript functions so you
+  can do whatever you want
+- Standalone: Only requires Cloudflare Workers and D1 services
 
 ## Wishlist
 
@@ -89,3 +95,4 @@ Things that could be nice to add:
 - Examples for notifications to email, Slack, Discord, etc.
 - Filtering and paging of events
 - Support for environments (e.g. production, staging)
+- Validating webhooks (currently anyone can call the webhook endpoint)
