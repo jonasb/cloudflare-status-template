@@ -10,6 +10,7 @@ export function Layout({ title, children }: { title: string; children?: any }) {
         <style>
           :root {
             --background: #fefcf6;
+            --card-background: #f0eee8;
             --color: #1f2329;
           }
           body {
@@ -19,6 +20,14 @@ export function Layout({ title, children }: { title: string; children?: any }) {
           }
           a {
             color: var(--color);
+          }
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            text-wrap: balance;
           }
           .container {
             max-width: 800px;
@@ -30,6 +39,25 @@ export function Layout({ title, children }: { title: string; children?: any }) {
             overflow-x: auto;
             margin: 0 -2rem;
             padding: 0 2rem;
+          }
+          .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+          }
+          .card {
+            background: var(--card-background);
+            padding: 1rem;
+            border-radius: 0.5rem;
+          }
+          .probe-card {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+          }
+          .probe-card p,
+          .probe-card h3 {
+            margin: 0;
           }
           .table {
             border-spacing: 0.25rem;
@@ -47,6 +75,7 @@ export function Layout({ title, children }: { title: string; children?: any }) {
           @media (prefers-color-scheme: dark) {
             :root {
               --background: #02040a;
+              --card-background: #1f2329;
               --color: #e6edf3;
             }
           }

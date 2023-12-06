@@ -13,7 +13,7 @@ export function ProbeOverview({
   timezone: string;
 }) {
   return (
-    <ul>
+    <div class="card-container">
       {probeConfigs.map((probeConfig) => {
         const status =
           probeStatuses.find((it) => it.id === probeConfig.id) ?? null;
@@ -25,7 +25,7 @@ export function ProbeOverview({
           />
         );
       })}
-    </ul>
+    </div>
   );
 }
 
@@ -42,23 +42,33 @@ function ProbeCard({
   switch (probeStatus?.lastResult) {
     case 'failure':
       lastOppositeResult = probeStatus.lastSuccessAt
-        ? `last success ${formatDateTime(probeStatus.lastSuccessAt, timezone)}`
-        : 'never succeeded';
+        ? `Last success ${formatDateTime(probeStatus.lastSuccessAt, timezone)}`
+        : 'Never succeeded';
       break;
     case 'success':
       lastOppositeResult = probeStatus.lastFailureAt
-        ? `last failure ${formatDateTime(probeStatus.lastFailureAt, timezone)}`
-        : 'never failed';
+        ? `Last failure ${formatDateTime(probeStatus.lastFailureAt, timezone)}`
+        : 'Never failed';
       break;
     default:
       break;
   }
   return (
-    <li>
-      <Indicator result={probeStatus?.lastResult ?? ''} /> {probeConfig.title}{' '}
-      {probeStatus?.sameResultSince &&
-        'since ' + formatDateTime(probeStatus.sameResultSince, timezone)}
-      {lastOppositeResult && ` (${lastOppositeResult})`}
-    </li>
+    <div class="card probe-card">
+      <div>
+        <h3>&nbsp;</h3>
+        <p>
+          <Indicator result={probeStatus?.lastResult ?? ''} />
+        </p>
+      </div>
+      <div>
+        <h3>{probeConfig.title}</h3>
+        <p>
+          {probeStatus?.sameResultSince &&
+            'Since ' + formatDateTime(probeStatus.sameResultSince, timezone)}
+        </p>
+        {lastOppositeResult && <p>{lastOppositeResult}</p>}
+      </div>
+    </div>
   );
 }
