@@ -23,16 +23,15 @@ for creating custom status pages.
 - `npm install`
 - `npx wrangler login` to login to your Cloudflare account
 - `npx wrangler d1 create <DATABASE_NAME>` to create a new database
-- `cp wrangler.toml.example wrangler.toml` and change the `name` to your
-  project name and add the `database_name` and `database_id` from the database
-  you created in the previous step to `wrangler.toml`
-- `npx wrangler d1 migrations apply --local <DATABASE_NAME>` to set up the local
-  database
+- Edit `wrangler.toml` and change the `name` to your project name, and
+  `database_name` and `database_id` to the one you created in the previous step
+- Edit `package.json` and change the name of the database in the `db:` scripts
+- `npm run db:migrate:local` to set up the local database
 - `npm start` to start the development server
 
 ## Deploying
 
-- `npx wrangler d1 migrations apply <DATABASE_NAME>` to ensure the database is migrated
+- `npm run db:migrate:production` to ensure the database is migrated
 - `npm run build && npm run deploy` to deploy the status page to Cloudflare
 
 ## Probes
@@ -50,6 +49,10 @@ prove is:
 
 There are example helpers for running HTTP and Atlassian Statuspage probes in
 `src/probes/`, but it's just JavaScript, so you can do whatever you want.
+
+**N.B.** There are some [limits](https://developers.cloudflare.com/workers/platform/limits/)
+to be aware of when using the free plan, e.g. CPU time, sub requests and number of
+CRON triggers.
 
 ## Webhooks
 
