@@ -1,7 +1,7 @@
 # Replace name with your own app name
 name = "cloudflare-status-template"
 main = "src/index.tsx"
-compatibility_date = "2023-11-21"
+compatibility_date = "2024-02-11"
 
 [[d1_databases]]
 binding = "DB"
