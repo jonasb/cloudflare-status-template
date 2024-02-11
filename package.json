@@ -13,7 +13,7 @@
     "tail": "wrangler tail"
   },
   "dependencies": {
-    "d1-sql-tag": "^0.2.0",
+    "d1-sql-tag": "^0.2.2",
     "hono": "^3.11.2"
   },
   "devDependencies": {
