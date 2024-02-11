@@ -1,9 +1,16 @@
+type Brand<K, T> = K & { __brand: T };
+
+export type EventId = Brand<number, 'EventId'>;
+export type LogLineId = Brand<number, 'LogLineId'>;
+export type ProbeId = Brand<string, 'ProbeId'>;
+export type WebhookId = Brand<string, 'WebhookId'>;
+
 export interface DatabaseSchema {
   events: {
-    id: number;
+    id: EventId;
     created_at: string;
-    probe_id: string | null;
-    webhook_id: string | null;
+    probe_id: ProbeId | null;
+    webhook_id: WebhookId | null;
     duration: number | null;
     result: 'success' | 'failure';
     category: string;
@@ -11,14 +18,14 @@ export interface DatabaseSchema {
   };
 
   log_lines: {
-    id: number;
+    id: LogLineId;
     created_at: string;
     level: 'info' | 'warn' | 'error';
     message: string;
   };
 
   probe_statuses: {
-    id: string;
+    id: ProbeId;
     last_started_at: string;
     last_result: 'success' | 'failure' | '';
     last_success_at: string | null;
