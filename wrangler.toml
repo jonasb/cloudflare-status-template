@@ -13,5 +13,5 @@ database_id = "699eee12-17d4-47a3-a707-31086df59ba5"
 bucket = "./assets"
 
 [triggers]
-# Configure the CRON schedules, ensure the probes in src/probes/probe-configss.ts are configured accordingly
+# Configure the CRON schedules, ensure the probes in src/probes/probe-configs.ts are configured accordingly
 crons = [ "0 * * * *" ]

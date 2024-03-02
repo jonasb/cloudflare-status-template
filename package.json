@@ -15,11 +15,11 @@
   },
   "dependencies": {
     "d1-sql-tag": "^0.3.0",
-    "hono": "^3.11.2"
+    "hono": "^4.0.8"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240222.0",
     "typescript": "^5.3.3",
-    "wrangler": "^3.29.0"
+    "wrangler": "^3.30.1"
   }
 }
