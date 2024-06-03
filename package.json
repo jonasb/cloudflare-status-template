@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "d1-sql-tag": "^0.3.0",
-    "hono": "^4.4.0"
+    "hono": "^4.4.3"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240524.0",
