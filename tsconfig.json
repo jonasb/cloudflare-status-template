@@ -6,7 +6,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
     "moduleResolution": "node",
-    "types": ["@cloudflare/workers-types/2023-07-01"],
+    "types": ["@cloudflare/workers-types/2023-07-01", "node"],
     "noEmit": true,
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,

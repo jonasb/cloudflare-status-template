@@ -43,7 +43,7 @@ Consider:
 
 Probes are functions (defined in `src/probes/probe-configs.ts`) that run
 periodically to check the status of a service or component. The results of a
-prove is:
+probe is:
 
 - created at: the time the probe was run
 - result: `success` or `failure`

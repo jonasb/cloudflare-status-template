@@ -1,14 +1,12 @@
 import { Hono } from 'hono';
-import { serveStatic } from 'hono/cloudflare-workers';
 import { timing } from 'hono/timing';
+import { getFavicon } from './assets/favicon';
 import { defaultTimezone } from './components/timezone-switcher';
 import { createCronSqlTag, createSqlTag } from './db/sql-tag';
 import { StatusPage } from './pages/status-page';
 import { executeAllProbes, executeCronProbes } from './probes/probe-executor';
 import { createPersistentLogger } from './utils/persistent-logger';
 import { executeWebhook } from './webhooks/webhook-executor';
-
-const manifest = '{}'; // TODO should be imported from '__STATIC_CONTENT_MANIFEST'
 
 export type Bindings = Env & Record<string, string>;
 
@@ -20,7 +18,10 @@ const app: CloudflareHono = new Hono();
 
 app.use('*', timing());
 
-app.get('/favicon.ico', serveStatic({ path: './favicon.ico', manifest }));
+app.get('/favicon.ico', (c) => {
+  c.header('Content-Type', 'image/x-icon');
+  return c.body(getFavicon());
+});
 
 app.get('/', async (c) => {
   const sql = createSqlTag(c);

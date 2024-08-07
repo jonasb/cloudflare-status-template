@@ -1,16 +1,14 @@
 # Replace name with your own app name
 name = "cloudflare-status-template"
 main = "src/index.tsx"
-compatibility_date = "2024-02-11"
+compatibility_date = "2024-06-03"
+compatibility_flags = [ "nodejs_compat" ]
 
 [[d1_databases]]
 binding = "DB"
 # Replace with your own database name and ID.
 database_name = "cloudflare-status-template"
 database_id = "699eee12-17d4-47a3-a707-31086df59ba5"
-
-[site]
-bucket = "./assets"
 
 [triggers]
 # Configure the CRON schedules, ensure the probes in src/probes/probe-configs.ts are configured accordingly
