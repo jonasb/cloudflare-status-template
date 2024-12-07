@@ -1,8 +1,9 @@
 import { Buffer } from 'node:buffer';
 
-export function getFavicon(): Uint8Array {
+export function getFavicon() {
   const buffer = Buffer.from(FAVICON_BASE_64, 'base64');
-  return new Uint8Array(buffer);
+  const array = new Uint8Array(buffer);
+  return array.buffer;
 }
 
 // Cloudflare Workers no longer support static assets via Cloudflare Sites.
