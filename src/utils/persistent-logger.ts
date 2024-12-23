@@ -1,4 +1,5 @@
 import type { SqlTag } from 'd1-sql-tag';
+import type { ExecutionContext } from 'hono';
 import { insertLogLine } from '../db/database-statements';
 
 export type PersistentLogger = (
