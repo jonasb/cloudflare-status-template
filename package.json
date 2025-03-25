@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "d1-sql-tag": "^0.4.1",
-    "hono": "^4.7.4"
+    "hono": "^4.7.5"
   },
   "devDependencies": {
     "@types/node": "^22.13.13",
