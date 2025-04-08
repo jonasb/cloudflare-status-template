@@ -14,12 +14,12 @@
     "tail": "wrangler tail"
   },
   "dependencies": {
-    "d1-sql-tag": "^0.4.2",
+    "d1-sql-tag": "^0.4.3",
     "hono": "^4.7.5"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
     "typescript": "^5.8.3",
-    "wrangler": "^4.1.0"
+    "wrangler": "^4.9.1"
   }
 }
