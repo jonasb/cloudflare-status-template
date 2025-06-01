@@ -18,7 +18,7 @@
     "hono": "^4.7.10"
   },
   "devDependencies": {
-    "@types/node": "^22.15.19",
+    "@types/node": "^22.15.21",
     "typescript": "^5.8.3",
     "wrangler": "^4.16.1"
   }
